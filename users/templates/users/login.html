@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+{% block content%}
+<h2> I'm logging in, I want the world to know, got to let it show</h2>
+<form input="text" class="login" method="POST">
+	<input type="text" name="username">Username</input>
+	<input type="password" name="password">Password</input>
+	{% csrf_token %}
+	<button>
+		Login
+	</button>
+</form>
+{% endblock %}

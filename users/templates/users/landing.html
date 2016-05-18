@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Piki - Piki me, Pikichu</title>
+{% endblock %}
+
+{% block content %}
+Forms for register and login go here
+<form action="{% url 'users:register' %}" name="register" class="registerbutton" method="GET">
+	<button>Register</button>
+</form>
+<form action="{% url 'users:login' %}" name="register" class="loginbutton" method="GET">
+	<button>Login</button>
+<!-- Both register and logins are posts -->
+{% endblock %}
