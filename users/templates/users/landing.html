@@ -6,10 +6,11 @@
 
 {% block content %}
 Forms for register and login go here
-<form action="{% url 'users:register' %}" name="register" class="registerbutton" method="GET">
+<form action="{% url 'registration_register' %}" name="register" class="registerbutton" method="GET">
+	<!-- accounts:register exists but not rendering correctly -->
 	<button>Register</button>
 </form>
-<form action="{% url 'users:login' %}" name="register" class="loginbutton" method="GET">
+<form action="{% url 'users:login' %}" name="login" class="loginbutton" method="GET">
 	<button>Login</button>
 <!-- Both register and logins are posts -->
 {% endblock %}

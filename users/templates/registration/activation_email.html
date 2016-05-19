@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+<!-- throw some styling up in here -->
+
+<br>
+Hello!</br>
+
+<p>Please click the link below to activate your account and start piki-ing.</p>
+<br>
+<p>http://{{ site.domain }}{% url 'registration_activate' activation_key %}</p>
+
+<p>The above link is valid for 7 days.</p>

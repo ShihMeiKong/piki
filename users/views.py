@@ -15,7 +15,8 @@ class Landing(View):
 
 
 class Register(View):
-    template_name = "users/register.html"
+    # template_name = "users/register.html"
+    template_name = "accounts/activate.html"
     index = "users/index.html"
 
     def get(self, request):
@@ -34,11 +35,11 @@ class Register(View):
         user = User.objects.create_user(username=username, email=email, password=password)
         # users/index will redirect to users/users index
         # /users/index sends to index
-        return redirect('/users/index')
+        return redirect('/accounts/activate')
 
 
 class Login(View):
-    template_name = "users/login.html"
+    template_name = "registration/login.html"
 
     def get(self, request):
         return render(request, self.template_name)
@@ -58,9 +59,17 @@ class Login(View):
             return JsonResponse({'status': 'Invalid username and/or password'})
 
 
-
 class Index(View):
     template_name = "users/index.html"
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class Logout(View):
+
+    def post(self, request):
+        logout(request)
+        return JsonResponse({
+            'status': 'You have logged out'
+        })

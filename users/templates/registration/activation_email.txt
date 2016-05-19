@@ -1,0 +1,7 @@
+Hello!
+
+Please click the link below to activate your account and start piki-ing.
+
+http://{{ site.domain }}{% url 'accounts:registration_activate' activation_key %}
+
+The above link is valid for 7 days.

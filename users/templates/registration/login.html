@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+{% block content%}
+<h2> I'm logging in, I want the world to know, got to let it show</h2>
+<form input="text" class="login" method="POST">
+	<input type="text" name="username">Username</input>
+	<input type="password" name="password">Password</input>
+	{% csrf_token %}
+	<button>
+		Login
+	</button>
+</form>
+
+<p>Password not working no matter no slowly you're typing it? <a href="{% url 'auth_password_reset' %}">Reset Password</a></p>
+<p>Not piki-ing yet? <a href="{% url 'registration_register' %}">Register</a></p>
+
+{% endblock %}
