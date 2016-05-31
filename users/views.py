@@ -94,10 +94,35 @@ class Index(View):
     template_name = "users/index.html"
 
     def get(self, request):
-        username = (request.session.get('username'))
+        # username = (request.session.get('username'))
+        # all of user's match pref is another user's foodprefs
+        # use kwargs as filter
+        user = request.user
+        user_match_prefs = UserMatchPref.objects.get(user=user)
+        user_own_prefs = UserFoodPref.objects.get(user=user)
+        own_pref = user_own_prefs.__dict__
+        match_dict = user_match_prefs.__dict__
+        print(match_dict)
+        match = {}
+        for key, value in match_dict.items():
+            if "match_" in key and value == True:
+                # key is something like 'match_vegan'
+                # when the match_vegan is added to the match dict
+                # it has the transformed key but the value remains the same
+                new_key = key.replace('match', 'is')
+                match[new_key] = True
+        # import pdb; pdb.set_trace()
+
+        # match == { 'is_vegan': True, 'is_alchohol': True}
+        match = UserFoodPref.objects.filter(**match)
+        print(match)
         context = {
-            'username': username
+            'username': user.username,
+            # since match is a list of dictionaries
+            # have to use list comprehension to get the user out
+            'match': [boom.user for boom in match],
         }
+
         return render(request, self.template_name, context)
 
 
@@ -110,13 +135,13 @@ class Profile(View):
         user = request.user
         user_own_prefs = UserFoodPref.objects.get(user=user)
         user_match_prefs = UserMatchPref.objects.get(user=user)
-        # import pdb; pdb.set_trace()
         own_pref = user_own_prefs.__dict__
         match_dict = user_match_prefs.__dict__
         print(own_pref)
         print(match_dict)
         context = own_pref.copy()
         context.update(match_dict)
+
 
         # import pdb; pdb.set_trace()
         return render(request, self.template_name, context)
