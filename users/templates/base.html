@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,10 @@
 	{% block head %}
 	<title>Document</title>
 	{% endblock %}
-	<!-- all scripts go in here -->
+
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js"></script>
+	<script defer src="{% static 'users/ajaxsetup.js' %}"></script>
+	<script defer src="{% static 'users/main.js' %}"></script>
 
 </head>
 <body>

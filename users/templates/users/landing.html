@@ -6,7 +6,7 @@
 
 {% block content %}
 Forms for register and login go here
-<form action="{% url 'registration_register' %}" name="register" class="registerbutton" method="GET">
+<form action="{% url 'users:register' %}" name="register" class="registerbutton" method="GET">
 	<!-- accounts:register exists but not rendering correctly -->
 	<button>Register</button>
 </form>

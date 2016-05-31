@@ -27,17 +27,30 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# location on server where user image files will be uploaded to
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEIDA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pikitesting@gmail.com'
+EMAIL_HOST_PASSWORD = 'C++3rdedition'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'questions',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -120,3 +133,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# user has seven days to activate their account through an email link
+ACCOUNT_ACTIVATION_DAYS = 7
+# sends emails in html
+REGISTRATION_EMAIL_HTML = True
+# logs users in once they click on the registration link
+REGISTRATION_AUTO_LOGIN = True
+SITE_ID = 1

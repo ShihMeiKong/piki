@@ -5,7 +5,33 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, null=True)
+    # saves the image in profile folder and then sorted by date
+    # image = models.FileField(upload_to='profile/%Y/%m/%d')
+
+
+class UserFoodPref(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    is_peanut = models.BooleanField(default=False)
+    is_vegetarian = models.BooleanField(default=False)
+    is_vegan = models.BooleanField(default=False)
+    is_lactose = models.BooleanField(default=False)
+    is_diabetic = models.BooleanField(default=False)
+    is_gluten = models.BooleanField(default=False)
+    is_kosher = models.BooleanField(default=False)
+    is_alcohol = models.BooleanField(default=False)
+
+
+class UserMatchPref(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    match_peanut = models.BooleanField(default=False)
+    match_vegetarian = models.BooleanField(default=False)
+    match_vegan = models.BooleanField(default=False)
+    match_lactose = models.BooleanField(default=False)
+    match_diabetic = models.BooleanField(default=False)
+    match_gluten = models.BooleanField(default=False)
+    match_kosher = models.BooleanField(default=False)
+    match_alcohol = models.BooleanField(default=False)
 
 
 class Messages(models.Model):
