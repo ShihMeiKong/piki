@@ -17,6 +17,14 @@
 <!-- create click event for button click -->
 <p>Profile of matches goes here</p>
 
-{{match}}
+<ul>
+	{% for match in matches %}
+	<li>
+		<h4 class="username">{{match.username}}</h4>
+		<span class="gender">{{match.gender}}</span>
+		<img class="avatar" src="{{match.image}}"/>
+	</li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

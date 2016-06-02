@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
-from .models import *
+from .models import UserProfile, UserFoodPref, UserMatchPref
 from .forms import ProfileImageForm
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -95,7 +95,6 @@ class Index(View):
     template_name = "users/index.html"
 
     def get(self, request):
-        # import pdb; pdb.set_trace()
         user = request.user
         # index will blow up if the user doesn't have a match pref
         # will write a script to cover it but just in case the script doesn't work
@@ -121,22 +120,23 @@ class Index(View):
             'match_kosher': False,
             'match_alcohol': False,
         }
+        # below is done in case seed_db_with_users script fails
         # get or create expects kwargs and returns a tuple
         user_own_prefs, _ = UserFoodPref.objects.get_or_create(
             user=user,
-            **default_own_pref,
+            defaults=default_own_pref
         )
 
         user_match_prefs, _ = UserMatchPref.objects.get_or_create(
             user=user,
-            **default_match_prefs,
+            defaults=default_match_prefs
         )
 
-        # username = (request.session.get('username'))
         # all of user's match pref is another user's foodprefs
         # use kwargs as filter
         user_match_prefs = UserMatchPref.objects.filter(user=user)
         user_own_prefs = UserFoodPref.objects.filter(user=user)
+
         own_pref = user_own_prefs.__dict__
         match_dict = user_match_prefs.__dict__
         print(match_dict)
@@ -149,16 +149,24 @@ class Index(View):
                 new_key = key.replace('match', 'is')
                 match[new_key] = True
 
-        # match == { 'is_vegan': True, 'is_alchohol': True}
-        match = UserFoodPref.objects.filter(**match)
+        matching_food_prefs = UserFoodPref.objects.filter(**match)
+        matching_users = [food_pref.user for food_pref in matching_food_prefs]
         # message = message.objects.all()
         # print(message)
-        print(match)
+        print(matching_users)
+        matching_profiles = [UserProfile.objects.get(user=u) for u in matching_users] # all matching_profiles where the profile exists in matching_user
+        matches = []
+        for profile in matching_profiles:
+            matches.append({
+                'image': profile.image,
+                'gender': profile.gender,
+                'username': profile.user.username,
+            })
         context = {
             'username': user.username,
             # since match is a list of dictionaries
             # have to use list comprehension to get the user out
-            'match': [boom.user for boom in match],
+            'matches': matches,
             # 'message': message,
         }
         return render(request, self.template_name, context)
