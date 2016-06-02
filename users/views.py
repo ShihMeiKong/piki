@@ -62,6 +62,7 @@ class Register(View):
             'match_kosher': False,
             'match_alcohol': False
         }
+
         UserFoodPref.objects.create(user=user, **default_choices)
         UserMatchPref.objects.create(user=user, **match_choices)
         # users/index will redirect to users/users index
@@ -70,7 +71,7 @@ class Register(View):
 
 
 class Login(View):
-    template_name = "registration/login.html"
+    template_name = "users/login.html"
 
     def get(self, request):
         return render(request, self.template_name)
@@ -94,12 +95,48 @@ class Index(View):
     template_name = "users/index.html"
 
     def get(self, request):
+        # import pdb; pdb.set_trace()
+        user = request.user
+        # index will blow up if the user doesn't have a match pref
+        # will write a script to cover it but just in case the script doesn't work
+        # the below will ensure index will continue to run
+        default_own_pref = {
+            'is_peanut': False,
+            'is_vegetarian': False,
+            'is_vegan': False,
+            'is_lactose': False,
+            'is_diabetic': False,
+            'is_gluten': False,
+            'is_kosher': False,
+            'is_alcohol': False,
+        }
+
+        default_match_prefs = {
+            'match_peanut': False,
+            'match_vegetarian': False,
+            'match_vegan': False,
+            'match_lactose': False,
+            'match_diabetic': False,
+            'match_gluten': False,
+            'match_kosher': False,
+            'match_alcohol': False,
+        }
+        # get or create expects kwargs and returns a tuple
+        user_own_prefs, _ = UserFoodPref.objects.get_or_create(
+            user=user,
+            **default_own_pref,
+        )
+
+        user_match_prefs, _ = UserMatchPref.objects.get_or_create(
+            user=user,
+            **default_match_prefs,
+        )
+
         # username = (request.session.get('username'))
         # all of user's match pref is another user's foodprefs
         # use kwargs as filter
-        user = request.user
-        user_match_prefs = UserMatchPref.objects.get(user=user)
-        user_own_prefs = UserFoodPref.objects.get(user=user)
+        user_match_prefs = UserMatchPref.objects.filter(user=user)
+        user_own_prefs = UserFoodPref.objects.filter(user=user)
         own_pref = user_own_prefs.__dict__
         match_dict = user_match_prefs.__dict__
         print(match_dict)
@@ -111,18 +148,19 @@ class Index(View):
                 # it has the transformed key but the value remains the same
                 new_key = key.replace('match', 'is')
                 match[new_key] = True
-        # import pdb; pdb.set_trace()
 
         # match == { 'is_vegan': True, 'is_alchohol': True}
         match = UserFoodPref.objects.filter(**match)
+        # message = message.objects.all()
+        # print(message)
         print(match)
         context = {
             'username': user.username,
             # since match is a list of dictionaries
             # have to use list comprehension to get the user out
             'match': [boom.user for boom in match],
+            # 'message': message,
         }
-
         return render(request, self.template_name, context)
 
 
@@ -175,12 +213,11 @@ class Logout(View):
         return redirect('/users/logout')
 
 
-"""
-When a user puts in their own food restrictions
-its saved in the database
-"""
-
 class UserPrefAndMatch(View):
+    """
+    When a user puts in their own food restrictions
+    its saved in the database
+    """
 
     def post(self, request):
         # We get a request from the user that includes their new user pref choices
@@ -232,3 +269,4 @@ class UserPrefAndMatch(View):
         user_match_prefs.save()
         # import pdb; pdb.set_trace()
         return redirect('/users/index')
+

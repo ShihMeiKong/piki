@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^profile$', views.Profile.as_view(), name='profile'),
     url(r'^upload$', views.ProfileImageView.as_view(), name='profileimage'),
     url(r'^userprefandmatch$', views.UserPrefAndMatch.as_view(), name='userprefandmatch'),
+
 ]
 # add static file location to use media as static file in production
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
