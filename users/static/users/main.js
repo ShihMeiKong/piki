@@ -62,6 +62,6 @@ $(document).ready(function(){
 	$('.logoutbutton').on('click', logout);
 	// $('.userprefsubmit').on('submit', userPref);
 	$('.profilebutton').on('click', profile);
-	$('.loginbutton').on('click', login);
+	$('#loginbutton').on('click', login);
 
 })
