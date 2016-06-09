@@ -32,8 +32,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEIDA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pikitesting@gmail.com'
-EMAIL_HOST_PASSWORD = 'C++3rdedition'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -134,8 +132,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = staticfiles
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    STATIC_ROOT
 ]
 
 # user has seven days to activate their account through an email link
