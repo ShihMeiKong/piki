@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^index$', views.Index.as_view(), name='index'),
     url(r'^show/(?P<profile_id>[0-9]+)$', views.Show.as_view(), name='show'),
     url(r'^profile$', views.Profile.as_view(), name='profile'),
-    url(r'^upload$', views.ProfileImageView.as_view(), name='profileimage'),
+    # url(r'^upload$', views.ProfileImageView.as_view(), name='profileimage'),
     url(r'^userprefandmatch$', views.UserPrefAndMatch.as_view(), name='userprefandmatch'),
 
 ]

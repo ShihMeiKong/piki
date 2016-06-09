@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
 from .models import UserProfile, UserFoodPref, UserMatchPref
+# from .forms import ProfileImageForm
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 # from django.core.mail import send_mail
@@ -206,21 +207,21 @@ class Profile(View):
         return render(request, self.template_name, context)
 
 
-class ProfileImageView(View):
-    template_name = 'users/profileimage.html'
-    form_class = ProfileImageForm
+# class ProfileImageView(View):
+#     template_name = 'users/profileimage.html'
+#     form_class = ProfileImageForm
 
-    def form_valid(self, form):
-        profile_image = ProfileImage(
-            # gets all kwargs that was passed in during the post
-            # every post has post and files dictionary in the request
-            # post has form data
-            # files has biniary data, either manipulate or save
-            # to get image, need to get file dictionary from kwargs
-            image=self.get_form_kwargs().get('files')['image'])
-        profile_image.save()
-        self.id = profile_image.id
-        return redirect(self.template_name)
+#     def form_valid(self, form):
+#         profile_image = ProfileImage(
+#             # gets all kwargs that was passed in during the post
+#             # every post has post and files dictionary in the request
+#             # post has form data
+#             # files has biniary data, either manipulate or save
+#             # to get image, need to get file dictionary from kwargs
+#             image=self.get_form_kwargs().get('files')['image'])
+#         profile_image.save()
+#         self.id = profile_image.id
+#         return redirect(self.template_name)
 
 
 class Logout(View):

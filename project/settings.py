@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'postman',
 ]
 
 MIDDLEWARE_CLASSES = [
