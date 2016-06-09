@@ -2,44 +2,87 @@
 
 {% block head %}
 <title>Profile Page</title>
+<style type="text/css">
+	body{
+		padding-left: 3em;
+	}
+</style>
 {% endblock %}
 
 {% block content %}
 <h3>I am...</h3>
+<div id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <font color="black"<a class="navbar-brand page-scroll" href="#page-top">Piki</a></font>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="{% url 'users:index' %}">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'users:profile'%}">{{user}}'s Profile</a>
+                    </li>
+<!--                      <li>
+                        <a class="page-scroll" href="#services">Choices</a>
+                    </li> -->
+                    <li>
+                        <a class="page-scroll" href="{% url 'users:logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>
+<h3>I am ...</h3>
 <form action="{% url 'users:userprefandmatch' %}" name="UserPref" class="UserPref" method="POST">
 
-	<input type="checkbox" class="is_alcohol" label for="is_alcohol" name="is_alcohol" {% if is_alcohol %}checked{% endif %}>Alchol Free (does not drink alcohol)</label>
-
+	<input type="checkbox" class="is_alcohol" label for="is_alcohol" name="is_alcohol" {% if is_alcohol %}checked{% endif %}>Alcohol Free (does not drink alcohol)</label>
+	<br>
 	<input type="checkbox" class="is_peanut" label for="is_peanut" name="is_peanut" {% if is_peanut %}checked{% endif %}>Allergic to Peanuts</label>
-
+	<br>
 	<input type="checkbox" class="is_diabetic" label for="is_diabetic" name="is_diabetic" {% if is_diabetic %}checked{% endif %}>Diabetic </label>
-
+	<br>
 	<input type="checkbox" class="is_gluten" label for="is_gluten" name="is_gluten" {% if is_gluten %}checked{% endif %}>Gluten Free </label>
-
+	<br>
 	<input type="checkbox" class="is_kosher" label for="is_kosher" name="is_kosher" {% if is_kosher %}checked{% endif %}>Kosher</label>
-
+	<br>
 	<input type="checkbox" class="is_lactose" label for="is_lactose" name="is_lactose" {% if is_lactose %}checked{% endif %}>Lactose Intolerant</label>
-
+	<br>
 	<input type="checkbox" class="is_vegan" label for="is_vegan" name="is_vegan" {% if is_vegan %}checked{% endif %}>Vegan</label>
-
+	<br>
 	<input type="checkbox" class="is_vegetarian" label for="is_vegetarian" name="is_vegetarian" {% if is_vegan %}checked{% endif %}>Vegetarian</label>
 
 	<h3>I am looking for someone who is...</h3>
 
-	<input type="checkbox" class="match_alcohol" label for="match_alcohol" name="match_alcohol" {% if match_alcohol %}checked{% endif %}>Alchol Free (does not drink alcohol)</label>
-
+	<input type="checkbox" class="match_alcohol" label for="match_alcohol" name="match_alcohol" {% if match_alcohol %}checked{% endif %}>Alcohol Free (does not drink alcohol)</label>
+	<br>
 	<input type="checkbox" class="match_peanut" label for="match_peanut" name="match_peanut" {% if match_peanut %}checked{% endif %}>Allergic to Peanuts</label>
-
+	<br>
 	<input type="checkbox" class="match_diabetic" label for="match_diabetic" name="match_diabetic" {% if match_diabetic %}checked{% endif %}>Diabetic </label>
-
+	<br>
 	<input type="checkbox" class="match_gluten" label for="match_gluten" name="match_gluten" {% if match_gluten %}checked{% endif %}>Gluten Free </label>
-
+	<br>
 	<input type="checkbox" class="match_kosher" label for="match_kosher" name="match_kosher" {% if match_kosher %}checked{% endif %}>Kosher</label>
-
+	<br>
 	<input type="checkbox" class="match_lactose" label for="match_lactose" name="match_lactose" {% if match_lactose %}checked{% endif %}>Lactose Intolerant</label>
-
+	<br>
 	<input type="checkbox" class="match_vegan" label for="match_vegan" name="match_vegan" {% if match_vegan %}checked{% endif %}>Vegan</label>
-
+	<br>
 	<input type="checkbox" class="match_vegetarian" label for="match_vegetarian" name="match_vegetarian" {% if match_vegan %}checked{% endif %}>Vegetarian</label>
 
 	<br><br>

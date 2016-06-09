@@ -91,6 +91,19 @@ class Login(View):
             return JsonResponse({'status': 'Invalid username and/or password'})
 
 
+class Show(View):
+    template_name = "users/show.html"
+
+    def get(self, request, profile_id=1):
+        current_user = request.user
+        profile = UserProfile.objects.get(id=profile_id)
+        context = {
+            'current_user': current_user,
+            'profile': profile
+        }
+        return render(request, self.template_name, context)
+
+
 class Index(View):
     template_name = "users/index.html"
 
@@ -158,6 +171,7 @@ class Index(View):
         matches = []
         for profile in matching_profiles:
             matches.append({
+                'id': profile.id,
                 'image': profile.image,
                 'gender': profile.gender,
                 'username': profile.user.username,

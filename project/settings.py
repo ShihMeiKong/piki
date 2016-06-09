@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'questions',
+    'postman',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -77,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # allows for postman_unread_count to appear in templates
+                'postman.context_processors.inbox',
             ],
         },
     },
@@ -133,6 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 # user has seven days to activate their account through an email link
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -141,3 +147,14 @@ REGISTRATION_EMAIL_HTML = True
 # logs users in once they click on the registration link
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
+
+# vistors cannot write to users
+POSTMAN_DISALLOW_ANONYMOUS = True
+# restrict messages to occur between one user at a TIME_ZONE
+POSTMAN_DISALLOW_MULTIRECIPIENTS = True
+# restricts replies to one user only
+POSTMAN_DISALLOW_COPIES_ON_REPLY = True
+# all messages can send
+POSTMAN_AUTO_MODERATE_AS = True
+# shows original message
+POSTMAN_QUICKREPLY_QUOTE_BODY = True

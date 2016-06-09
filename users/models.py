@@ -6,8 +6,9 @@ from django.utils import timezone
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True)
-    # saves the image in profile folder and then sorted by date
-    # image = models.FileField(upload_to='profile/%Y/%m/%d')
+    # image is url string
+    image = models.TextField(null=True)
+    gender = models.CharField(max_length=10, null=True)
 
 
 class UserFoodPref(models.Model):

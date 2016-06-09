@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
+<!-- might have to relocate to the main app -->
 
 {% block head %}
-<title>Login</title>
+<title>Piki Main</title>
 {% endblock %}
 
-{% block content%}
-
-<body id="page-top">
+{% block content %}
+<div id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -25,16 +25,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="{% url 'users:landing' %}">Home</a>
+                        <a class="page-scroll" href="{% url 'users:index' %}">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{% url 'users:register' %}">Register</a>
+                        <a class="page-scroll" href="{% url 'users:profile'%}">{{user}}'s Profile</a>
                     </li>
 <!--                      <li>
                         <a class="page-scroll" href="#services">Choices</a>
                     </li> -->
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="{% url 'users:logout' %}">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -42,18 +42,21 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
-<h3> I'm logging in, I want the world to know, got to let it show</h3>
+</div>
 <br>
-<form input="text" class="login" method="POST">
-	<label for="Username">Username</label>
-	<input type="text" name="username"></input>
-	<label for="Password">Password</label>
-	<input type="password" name="password"></input>
-	{% csrf_token %}
-	<button class="btn btn-info">Login</button>
-</center>
-</form>
+<br>
+<br>
+
+
+<a href="/users/index">Back to Index</a>
+<section id="page-top">
+	Hello from: {{profile_id}}
+	<img src="{{profile.image}}">
+	{{profile.user.username}}
+	<a href="/messages/write/" button type="button" class="btn btn-secondary">Message</button>
+
+
+</section>
 
 
 {% endblock %}
