@@ -81,7 +81,9 @@ class Login(View):
         password = request.POST.get('password')
 
         user = authenticate(username=username, password=password)
+        print(username, password)
         print("user is authenticate")
+        print(user)
         if user:
             print("In user")
             request.session['username'] = username
