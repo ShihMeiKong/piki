@@ -65,9 +65,10 @@ class Register(View):
 
         UserFoodPref.objects.create(user=user, **default_choices)
         UserMatchPref.objects.create(user=user, **match_choices)
+        UserProfile.objects.create(user=user)
         # users/index will redirect to users/users index
         # /users/index sends to index
-        return redirect('/users/index')
+        return redirect('/users/login')
 
 
 class Login(View):

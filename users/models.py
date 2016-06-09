@@ -5,10 +5,10 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, null=True)
+    user = models.OneToOneField(User)
     # image is url string
-    image = models.TextField(null=True)
-    gender = models.CharField(max_length=10, null=True)
+    image = models.TextField(default='https://www.google.com/logos/doodles/2016/phoebe-snetsingers-85th-birthday-5179281716019200-hp.gif')
+    gender = models.CharField(max_length=10, default='Female')
 
 
 class UserFoodPref(models.Model):
