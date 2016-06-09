@@ -23,4 +23,4 @@ urlpatterns = [
     url(r'^$', views.Landing.as_view(), name='landing'),
     # url(r'^', include('registration.backends.default.urls')),
     # url(r'^messages/', include('postman.urls', namespace='postman')),
-# ]
+]
