@@ -77,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # allows for postman_unread_count to appear in templates
-                'postman.context_processors.inbox',
+                # 'postman.context_processors.inbox',
             ],
         },
     },
